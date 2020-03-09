@@ -26,9 +26,9 @@ class Vector {
     this.x = deepCopy(end.x - start.x);
     this.y = deepCopy(end.y - start.y);
     // polar coordinates
-    this.magnitude = deepCopy(Math.pow(this.x ** 2 + this.y ** 2, 1 / 2));
+    this.magnitude = Math.pow(this.x ** 2 + this.y ** 2, 1 / 2);
     // angle calculated clockwise from x axis
-    this.angle = deepCopy(Math.atan(this.y / this.x));
+    this.angle = Math.atan(this.y / this.x);
   }
   //   changing the magnitude of the vector keeping start fixed
   changeHeight = newHeight => {
