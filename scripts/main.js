@@ -92,6 +92,12 @@ setup = () => {
   createCanvas(WIDTH, HEIGHT);
   background(0, 0, 0);
   render(parentToChildRatio);
+  createButton("Auto Rotate")
+    .position(50, 50)
+    .mousePressed(autoRotate);
+  createButton("Stop")
+    .position(50, 70)
+    .mousePressed(stop);
 };
 draw = () => {
   if (reRender) {
@@ -114,7 +120,6 @@ changeVal = attribute => {
 };
 
 autoRotate = () => {
-  rotationAngle = 0;
   interval = setInterval(() => {
     rotationAngle += PI / 1080;
     reRender = true;
