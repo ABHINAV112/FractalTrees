@@ -7,7 +7,7 @@ var rotationAngle = PI / 4;
 var reRender = false;
 var interval;
 var parentToChildRatio = 0.75;
-
+const tilt = 0.5;
 class Point {
   constructor(x, y) {
     this.x = x;
@@ -66,11 +66,11 @@ branch = (parent, pcRatio, count = 5) => {
   let child1 = new Vector(end, start);
   let childHeight = height * pcRatio;
   child1.changeHeight(childHeight);
-  child1.changeAngle(angle - rotationAngle);
+  child1.changeAngle(angle - (1 + tilt) * rotationAngle);
   child1.graph();
   let child2 = new Vector(end, start);
   child2.changeHeight(childHeight);
-  child2.changeAngle(angle + rotationAngle);
+  child2.changeAngle(angle + (1 - tilt) * rotationAngle);
   child2.graph();
 
   if (childHeight > 10) {
