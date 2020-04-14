@@ -6,6 +6,7 @@ var rotationAngle = PI / 4;
 var reRender = false;
 var interval;
 var parentToChildRatio = 0.75;
+var autoRotateOn = false;
 
 class Point {
   constructor(x, y) {
@@ -79,6 +80,7 @@ branch = (parent, pcRatio, count = 5) => {
     branch(child2, pcRatio, count - 1);
   }
 };
+
 // rendering the entire tree
 render = (pcRatio) => {
   var bottomMiddle = new Point(WIDTH / 2, HEIGHT);
@@ -93,8 +95,20 @@ setup = () => {
   createCanvas(WIDTH, HEIGHT);
   background(0, 0, 0);
   render(parentToChildRatio);
-  createButton("Auto Rotate").position(50, 50).mousePressed(autoRotate);
-  createButton("Stop").position(50, 70).mousePressed(stop);
+  createButton("Auto Rotate")
+    .position(50, 50)
+    .mousePressed(autoRotate)
+    .style("width", "100px")
+    .style("height", "20px")
+    .style("background", "green")
+    .style("color", "white");
+  createButton("Stop")
+    .position(50, 70)
+    .mousePressed(stop)
+    .style("width", "100px")
+    .style("height", "20px")
+    .style("background", "red")
+    .style("color", "white");
 };
 draw = () => {
   if (reRender) {
@@ -105,23 +119,18 @@ draw = () => {
   }
 };
 
-// event listeners
-changeVal = (attribute) => {
-  var sliders = {
-    // height: document.getElementById("height"),
-    angle: document.getElementById("angle"),
-  };
-  let currSlider = sliders[attribute];
-  rotationAngle = (currSlider.value * PI) / 50;
-  reRender = true;
-};
+// Event Listeners
 
 autoRotate = () => {
-  interval = setInterval(() => {
-    rotationAngle += PI / 1080;
-    reRender = true;
-  }, 10);
+  if (!autoRotateOn) {
+    interval = setInterval(() => {
+      rotationAngle += PI / 1080;
+      reRender = true;
+    }, 5);
+    autoRotateOn = true;
+  }
 };
 stop = () => {
   clearInterval(interval);
+  autoRotateOn = false;
 };
