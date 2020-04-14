@@ -1,3 +1,4 @@
+// constants
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
 const PI = 3.141592653589793;
@@ -6,6 +7,12 @@ var rotationAngle = PI / 4;
 var reRender = false;
 var interval;
 var parentToChildRatio = 0.75;
+// var tilt = 0.5;
+
+var sliders = {
+  // tilt: document.getElementById("tilt"),
+  angle: document.getElementById("angle"),
+};
 
 class Point {
   constructor(x, y) {
@@ -71,7 +78,7 @@ branch = (parent, pcRatio, count = 5) => {
   let child2 = new Vector(end, start);
   child2.changeHeight(childHeight);
 
-  child2.changeAngle(angle + rotationAngle);
+  child1.changeAngle(angle + rotationAngle);
   child2.graph();
 
   if (childHeight > 10) {
@@ -96,7 +103,9 @@ setup = () => {
   createButton("Auto Rotate").position(50, 50).mousePressed(autoRotate);
   createButton("Stop").position(50, 70).mousePressed(stop);
 };
+
 draw = () => {
+  console.log("tilt", rotationAngle);
   if (reRender) {
     fill(0);
     rect(0, 0, WIDTH, HEIGHT);
@@ -107,12 +116,13 @@ draw = () => {
 
 // event listeners
 changeVal = (attribute) => {
-  var sliders = {
-    // height: document.getElementById("height"),
-    angle: document.getElementById("angle"),
-  };
   let currSlider = sliders[attribute];
-  rotationAngle = (currSlider.value * PI) / 50;
+  if (attribute === "angle") {
+    rotationAngle = (currSlider.value * PI) / 50;
+  }
+  // if (attribute === "tilt") {
+  //   tilt = (currSlider.value * PI) / 50;
+  // }
   reRender = true;
 };
 
